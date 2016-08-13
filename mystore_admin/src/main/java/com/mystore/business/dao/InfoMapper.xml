@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.InfoMapper">
+  <select id="getInfoCateListByPid" parameterType="int" resultType="infoCate">
+		select
+		    id,
+		    pid,
+		    name,
+		    sort,
+		    status,
+		    bh,
+		    descr,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from info_cate 
+		where pid = #{value}
+	</select>
+    <select id="getInfoCateById" parameterType="int" resultType="infoCate">
+		select
+		    id,
+		    pid,
+		    name,
+		    sort,
+		    status,
+		    bh,
+		    descr,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from info_cate 
+		where id = #{value}
+	</select>
+	<insert id="addInfoCate" parameterType="infoCate" useGeneratedKeys="true" keyProperty="id">
+		insert into info_cate(
+		    pid,
+		    name,
+		    sort,
+		    status,
+		    bh,
+		    descr,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{pid},
+		    #{name},
+		    #{sort},
+		    '1',
+		    #{bh},
+		    #{descr},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updateInfoCateById" parameterType="infoCate">
+		update info_cate
+		<trim prefix="set" prefixOverrides=",">
+		  <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	       <if test="name != null">
+	        	name = #{name},
+	       </if>
+	       <if test="sort != null">
+				sort = #{sort},
+		   </if>
+	       <if test="status != null">
+				status = #{status},
+		   </if>
+		   <if test="bh != null">
+				bh = #{bh},
+		   </if>
+	       <if test="descr != null">
+	        	descr = #{descr},
+	       </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deletInfoCateById" parameterType="int">
+		delete from info_cate where id = #{value}
+	</delete>
+	<select id="selectCountByPid" parameterType="int" resultType="int">
+		select count(*)
+		from info_cate 
+		where pid = #{value}
+	</select>
+	<select id="getInfoCateByPidAndName" parameterType="map" resultType="infoCate">
+		select
+		    id,
+		    pid,
+		    name,
+		    sort,
+		    status,
+		    bh,
+		    descr,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from info_cate 
+		where pid = #{pid} and name = #{name}
+	</select>
+	<select id="getInfoCateByBh" parameterType="string" resultType="infoCate">
+		select
+		    id,
+		    pid,
+		    name,
+		    sort,
+		    status,
+		    bh,
+		    descr,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from info_cate 
+		where bh = #{value}
+	</select>
+	<insert id="addInfo" parameterType="info" useGeneratedKeys="true" keyProperty="id">
+		insert into info(
+		    id_cate,
+		    title,
+		    sort,
+		    content,
+		    status,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{id_cate},
+		    #{title},
+		    #{sort},
+		    #{content},
+		    #{status},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updateInfoById" parameterType="info">
+		update info
+		<trim prefix="set" prefixOverrides=",">
+		  <if test="id_cate != null">
+	        	id_cate = #{id_cate},
+	       </if>
+	       <if test="title != null">
+	        	title = #{title},
+	       </if>
+	       <if test="sort != null">
+				sort = #{sort},
+		   </if>
+	       <if test="status != null">
+				status = #{status},
+		   </if>
+		  <if test="content != null">
+				content = #{content},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteInfoById" parameterType="int">
+		delete from info where id = #{value}
+	</delete>
+	<delete id="deleteInfoBycateId" parameterType="int">
+		delete from info where id_cate = #{value}
+	</delete>
+	<select id="getInfoList" parameterType="info" resultType="info">
+		select
+		    id,
+		    id_cate,
+		    title,
+		    sort,
+		    content,
+		    status,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from info
+		<include refid="queryInfoCondition"/>
+		order by status desc, sort asc
+	    <if test="pageIndex != null and pageSize != null">
+               limit #{pageIndex},#{pageSize}
+        </if> 
+	</select>
+	<select id="getInfoById" parameterType="int" resultType="info">
+		select
+		    id,
+		    id_cate,
+		    title,
+		    sort,
+		    content,
+		    status,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from info
+		where id = #{value}
+	</select>
+	<select id="getInfoCount" parameterType="info" resultType="int">
+	    select  count(*)
+		from info
+	    <include refid="queryInfoCondition"/>
+	</select>
+	<sql id="queryInfoCondition">
+	    <trim prefix="WHERE" prefixOverrides="AND">
+              <if test="id != null">
+                  	and id = #{id}
+              </if>  
+              <if test="id_cate != null">
+                  	and id_cate = #{id_cate}
+              </if>  
+              <if test="title != null">
+                	and  title like CONCAT('%',#{title},'%')  
+              </if>
+              <if test="status != null">
+	        		and status = #{status}
+		      </if>                       
+		</trim>
+	</sql>
+</mapper>

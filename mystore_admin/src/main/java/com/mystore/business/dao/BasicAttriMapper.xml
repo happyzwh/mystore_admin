@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.BasicAttriMapper">
+	<select id="getBasicAttriById" parameterType="int" resultType="basicAttri">
+		select
+		    id,
+		    name,
+		    descr,
+		    showtype as 'showType',
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from basicattri 
+		where id = #{value}
+	</select>
+	<select id="getBasicAttriByName" parameterType="string" resultType="basicAttri">
+		select
+		    id,
+		    name,
+		    descr,
+		    showtype as 'showType',
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from basicattri 
+		where name = #{name}
+	</select>
+	<insert id="addBasicAttri" parameterType="basicAttri" useGeneratedKeys="true" keyProperty="id">
+		insert into basicattri(
+		    name,
+		    descr,
+		    showtype,
+		    rome,
+		    jianpin,
+		    enname,
+		    status,
+		    sort,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{name},
+		    #{descr},
+		    #{showType},
+		    #{rome},
+		    #{jianPin},
+		    #{enName},
+		    '1',
+		    #{sort},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updateBasicAttriById" parameterType="basicAttri">
+		update basicattri
+		<trim prefix="set" prefixOverrides=",">
+	       <if test="name != null">
+	        	name = #{name},
+	       </if>
+	       <if test="descr != null">
+	        	descr = #{descr},
+	       </if>
+	       <if test="showType != null">
+	        	showtype = #{showType},
+	       </if>
+	       <if test="rome != null">
+	        	rome = #{rome},
+	       </if>
+	        <if test="jianPin != null">
+	        	jianpin = #{jianPin},
+	       </if>
+	       <if test="enName != null">
+	        	enname = #{enName},
+	       </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   <if test="sort != null">
+				sort = #{sort},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteBasicAttriById" parameterType="int">
+		delete from basicattri where id = #{value}
+	</delete>
+	<select id="getBasicAttriList" parameterType="basicAttri" resultType="basicAttri">
+	    select  
+		    id,
+		    name,
+		    descr,
+		    showtype as 'showType',
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from basicattri
+	    <include refid="queryBasicAttriCondition"/>
+	    order by sort asc, name asc
+	    <if test="pageIndex != null and pageSize != null">
+               limit #{pageIndex},#{pageSize}
+        </if> 
+	</select>
+	<select id="getBasicAttriCount" parameterType="user" resultType="int">
+	    select  count(*)
+		from basicattri
+	    <include refid="queryBasicAttriCondition"/>
+	</select>
+	<sql id="queryBasicAttriCondition">
+	    <trim prefix="WHERE" prefixOverrides="AND">
+              <if test="id != null">
+                  	and id = #{id}
+              </if>  
+              <if test="name != null">
+                	and  name like CONCAT('%',#{name},'%')  
+              </if>
+              <if test="showType != null">
+	        		and showtype = #{showType}
+		      </if>
+		      <if test="rome != null">
+		        	and rome like CONCAT('%',#{rome},'%') 
+		      </if>
+		      <if test="jianPin != null">
+		        	and jianpin like CONCAT('%',#{jianPin},'%') 
+		      </if>
+		      <if test="enName != null">
+		        	and enname like CONCAT('%',#{enName},'%') 
+		      </if>
+		      and status = '1'                       
+		</trim>
+	</sql>
+</mapper>

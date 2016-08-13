@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.RegionMapper">
+    <select id="getRegionById" parameterType="int" resultType="region">
+		select
+		    id,
+		    pid,
+		    name,
+		    type,
+		    code,
+		    sort
+		from region 
+		where id = #{value}
+	</select>
+	<select id="selectRegionListByPid" parameterType="int" resultType="region">
+		select
+		    id,
+		    pid,
+		    name,
+		    type,
+		    code,
+		    sort
+		from region 
+		where pid = #{value}
+		order by sort asc
+	</select>
+	<select id="selectCountByPid" parameterType="int" resultType="int">
+		select count(*)
+		from region 
+		where pid = #{value}
+	</select>
+    <select id="getRegionByPidAndName" parameterType="map" resultType="region">
+		select
+		    id,
+		    pid,
+		    name,
+		    type,
+		    code,
+		    sort
+		from region 
+		where pid = #{pid} and name = #{name} 
+	</select>
+	<insert id="addRegion" parameterType="region" useGeneratedKeys="true" keyProperty="id">
+		insert into region(
+		    pid,
+		    name,
+		    type,
+		    code,
+		    sort
+		 )values(
+		    #{pid},
+		    #{name},
+		    #{type},
+		    #{code},
+		    #{sort}
+		 )
+	</insert>
+	<update id="upateRegionById" parameterType="region">
+		update region
+		<trim prefix="set" prefixOverrides=",">
+		  <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	       <if test="name != null">
+	        	name = #{name},
+	       </if>
+	        <if test="type != null">
+	        	type = #{type},
+	       </if>
+	       <if test="code != null">
+	        	code = #{code},
+	       </if>
+	       <if test="sort != null">
+	        	sort = #{sort}
+	       </if>
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteRegionById" parameterType="int">
+		delete from region where id = #{value}
+	</delete>
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.BrandInfoMapper">
+    <select id="getBrandInfoByBid" parameterType="int" resultType="brandInfo">
+		select
+		    id,
+		    id_brand,
+		    manufacturer,
+		    id_region,
+		    info,
+		    culture,
+		    honorsandawards,
+		    qualification,
+		    status,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from brandinfo 
+		where id_brand = #{value}
+	</select>
+	<insert id="addBrandInfo" parameterType="brandInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into brandinfo(
+		    id_brand,
+		    manufacturer,
+		    id_region,
+		    info,
+		    culture,
+		    honorsandawards,
+		    qualification,
+		    status,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{id_brand},
+		    #{manufacturer},
+		    #{id_region},
+		    #{info},
+		    #{culture},
+		    #{honorsandawards},
+		    #{qualification},
+		    '1',
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="upateBrandInfoByBid" parameterType="BrandInfo">
+		update brandinfo
+		<trim prefix="set" prefixOverrides=",">
+		   <if test="id_brand != null">
+	        	id_brand = #{id_brand},
+	       </if>
+		   <if test="manufacturer != null">
+	        	manufacturer = #{manufacturer},
+	       </if>
+	       <if test="id_region != null">
+	        	id_region = #{id_region},
+	       </if>
+	       <if test="info != null">
+	        	info = #{info},
+	       </if>
+	       <if test="culture != null">
+	        	culture = #{culture},
+	       </if>
+	       <if test="honorsandawards != null">
+	        	honorsandawards = #{honorsandawards},
+	       </if>
+	        <if test="qualification != null">
+	        	qualification = #{qualification},
+	       </if>
+	       lastdate = now()
+		</trim>	
+		where id_brand = #{id_brand}
+	</update>
+	<delete id="deleteBrandInfoByBid" parameterType="int">
+		delete from brandinfo where id_brand = #{value}
+	</delete>
+</mapper>

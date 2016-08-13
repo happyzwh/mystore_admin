@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.PowerMapper">
+	<select id="selectPowerById" parameterType="int" resultType="power">
+		select
+		    id,
+		    bh,
+		    name,
+		    pid,
+		    type,
+		    url,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adm_power 
+		where id = #{value}
+	</select>
+	<select id="selectPowerByBh" parameterType="string" resultType="power">
+		select
+		    id,
+		    bh,
+		    name,
+		    pid,
+		    type,
+		    url,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adm_power 
+		where bh = #{value}
+	</select>
+	<insert id="addPower" parameterType="power" useGeneratedKeys="true" keyProperty="id">
+		insert into adm_power(
+		    name,
+		    bh,
+		    pid,
+		    type,
+		    url,
+		    status,
+		    sort,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{name},
+		    #{bh},
+		    #{pid},
+		    #{type},
+		    #{url},
+		    '1',
+		    #{sort},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updatePowerById" parameterType="power">
+		update adm_power
+		<trim prefix="set" prefixOverrides=",">
+		   <if test="bh != null">
+	        	bh = #{bh},
+	       </if>
+	       <if test="name != null">
+	        	name = #{name},
+	       </if>
+	        <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	       <if test="type != null">
+	        	type = #{type},
+	       </if>
+	       <if test="url != null">
+	        	url = #{url},
+	       </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   <if test="sort != null">
+				sort = #{sort},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deletePowerById" parameterType="int">
+		delete from adm_power where id = #{value}
+	</delete>
+	<select id="selectPowerByPid" parameterType="int" resultType="power">
+	   select
+		    id,
+		    bh,
+		    name,
+		    pid,
+		    type,
+		    url,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adm_power 
+		where pid = #{value} and status = '1'
+		order by sort
+	</select>
+	<select id="selectCountByPid" parameterType="int" resultType="int">
+		select count(*)
+		from adm_power 
+		where pid = #{value} and status = '1'
+	</select>
+	<select id="selectPowerByPidAndName" parameterType="map" resultType="power">
+		select
+		    id,
+		    bh,
+		    name,
+		    pid,
+		    type,
+		    url,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adm_power 
+		where pid = #{pid} and name = #{name}
+	</select>
+	<select id="selectPowerByUid" parameterType="int" resultType="power">
+	    select 
+	        temp.id,
+	        temp.bh,
+		    temp.name,
+		    temp.pid,
+		    temp.type,
+		    temp.url,
+		    temp.status,
+		    temp.sort,
+		    temp.createdate as 'createDate',
+		    temp.lastdate as 'lastDate'
+		    from(
+				select
+				    p.id,
+				    p.bh,
+				    p.name,
+				    p.pid,
+				    p.type,
+				    p.url,
+				    p.status,
+				    p.sort,
+				    p.createdate,
+				    p.lastdate
+				from adm_power p,adm_user_power up
+				where p.id = up.id_power and up.id_user = #{value} and p.status = '1'
+				union 
+				select
+				    p.id,
+				    p.bh,
+				    p.name,
+				    p.pid,
+				    p.type,
+				    p.url,
+				    p.status,
+				    p.sort,
+				    p.createdate,
+				    p.lastdate
+				from adm_power p,adm_role_power rp,adm_user_role ur 
+				where p.id = rp.id_power and rp.id_role = ur.id_role and ur.id_user = #{value} and p.status = '1'
+		) temp order by temp.sort
+	</select>
+	<select id="selectAllPower" resultType="power">
+				select
+				    p.id,
+				    p.bh,
+				    p.name,
+				    p.pid,
+				    p.type,
+				    p.url,
+				    p.status,
+				    p.sort,
+				    p.createdate,
+				    p.lastdate
+				from adm_power p 
+				where  p.status = '1'
+	</select>
+</mapper>

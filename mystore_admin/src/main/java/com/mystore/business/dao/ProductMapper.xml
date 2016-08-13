@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.ProductMapper">
+	<insert id="addProduct" parameterType="product" useGeneratedKeys="true" keyProperty="id">
+		insert into product(
+			    id_cate,
+			    id_brand,
+			    name,
+			    sn,
+			    shorttitle,
+			    subtitle,
+			    entitle,
+			    rome,
+			    jianpin,
+			    keywords,
+			    path_img,
+			    descr,
+			    isshow,
+			    isonsale,
+			    isshipping,
+			    onoroffsaletime,
+			    sort,
+			    status,
+			    createdate,
+			    lastdate
+		 )values(
+		      #{id_cate},
+		      #{id_brand},
+		      #{name},
+		      #{sn},
+		      #{shortTitle},
+		      #{subTitle},
+		      #{enTitle},
+		      #{rome},
+		      #{jianPin},
+		      #{keyWords},
+		      #{path_img},
+		      #{descr},
+		      #{isShow},
+		      #{isOnSale},
+		      #{isShipping},
+		      #{onOrOffSaleTime},
+		      #{sort},
+		      '1',
+		      now(),
+		      now()
+		 )
+	</insert>
+    <update id="updateProById" parameterType="product">
+		update product
+		<trim prefix="set" prefixOverrides=",">
+	       <if test="id_cate != null">
+	        	id_cate = #{id_cate},
+	       </if>
+	       <if test="id_brand != null">
+				id_brand = #{id_brand},
+		   </if>
+		   <if test="name != null">
+				name = #{name},
+		   </if>
+		   <if test="sn != null">
+				sn = #{sn},
+		   </if>
+		   <if test="shortTitle != null">
+				shorttitle = #{shortTitle},
+		   </if>
+		   <if test="subTitle != null">
+				subtitle = #{subTitle},
+		   </if>
+		   <if test="enTitle != null">
+				entitle = #{enTitle},
+		   </if>
+		   <if test="rome != null">
+				rome = #{rome},
+		   </if>
+		   <if test="jianPin != null">
+				jianpin = #{jianPin},
+		   </if>
+		   <if test="keyWords != null">
+				keywords = #{keyWords},
+		   </if>
+		   <if test="path_img != null">
+				path_img = #{path_img},
+		   </if>
+		   <if test="descr != null">
+				descr = #{descr},
+		   </if>
+		   <if test="isShow != null">
+				isshow = #{isShow},
+		   </if>
+		   <if test="isOnSale != null">
+				isonsale = #{isOnSale},onoroffsaletime = now(),
+		   </if>
+		   <if test="isShipping != null">
+				isshipping = #{isShipping},
+		   </if>
+		   <if test="sort != null">
+				sort = #{sort},
+		   </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<select id="getProById" parameterType="int" resultType="product">
+		 select id,
+		        id_cate,
+			    id_brand,
+			    name,
+			    sn,
+			    shorttitle as 'shortTitle',
+			    subtitle as 'subTitle',
+			    entitle as 'enTitle',
+			    rome,
+			    jianpin as 'jianPin',
+			    keywords as 'keyWords',
+			    path_img,
+			    descr,
+			    isshow as 'isShow',
+			    isonsale as 'isOnSale',
+			    isshipping as 'isShipping',
+			    onoroffsaletime as 'onOrOffSaleTime',
+			    sort,
+			    status,
+			    createdate as 'createDate',
+			    lastdate as 'lastDate'
+		from product 
+		where id = #{value}
+	</select>
+	<select id="getProduct" parameterType="map" resultType="product">
+		select  id,
+		        id_cate,
+			    id_brand,
+			    name,
+			    sn,
+			    shorttitle as 'shortTitle',
+			    subtitle as 'subTitle',
+			    entitle as 'enTitle',
+			    rome,
+			    jianpin as 'jianPin',
+			    keywords as 'keyWords',
+			    path_img,
+			    descr,
+			    isshow as 'isShow',
+			    isonsale as 'isOnSale',
+			    isshipping as 'isShipping',
+			    onoroffsaletime as 'onOrOffSaleTime',
+			    sort,
+			    status,
+			    createdate as 'createDate',
+			    lastdate as 'lastDate'
+		from product
+		<trim prefix="WHERE" prefixOverrides="AND">
+              <if test="name != null">
+                  name = #{name}
+              </if>  
+              <if test="sn != null">
+                  sn = #{sn}
+              </if>
+        </trim>      
+	</select>
+	<select id="selectProList" parameterType="product" resultType="product">
+	    select  id,
+		        id_cate,
+			    id_brand,
+			    name,
+			    sn,
+			    shorttitle as 'shortTitle',
+			    subtitle as 'subTitle',
+			    entitle as 'enTitle',
+			    rome,
+			    jianpin as 'jianPin',
+			    keywords as 'keyWords',
+			    path_img,
+			    descr,
+			    isshow as 'isShow',
+			    isonsale as 'isOnSale',
+			    isshipping as 'isShipping',
+			    onoroffsaletime as 'onOrOffSaleTime',
+			    sort,
+			    status,
+			    createdate as 'createDate',
+			    lastdate as 'lastDate'
+		from product p
+	    <include refid="queryProCondition"/>
+	    order by sort asc, lastDate desc
+	    <if test="pageIndex != null and pageSize != null">
+               limit #{pageIndex},#{pageSize}
+        </if> 
+	</select>
+	<select id="selectProCount" parameterType="product" resultType="int">
+	    select  count(*)
+		from product
+	    <include refid="queryProCondition"/>
+	</select>
+	<delete id="deleteProById" parameterType="int">
+		delete from product where id = #{value}
+	</delete>
+	<update id="updateBatchProIsOnSale" parameterType="map">
+		    UPDATE product SET onoroffsaletime = NOW(),lastdate = NOW(),isonsale = CASE WHEN isonsale is null or isonsale = '0' THEN '1' ELSE '0' END
+			where id in
+			<foreach collection="idList" item="id"  open="(" close=")" separator=",">
+				#{id} 
+		    </foreach>
+	</update>
+	<select id="selectProListByLikeNameOrSn" parameterType="string" resultType="map">
+	    select  p.id,
+			    p.name,
+			    p.sn,
+			    c.name as 'cateName',
+			    b.name as 'brandName'
+		from product p,category c,brand b
+		where p.id_cate = c.id and  p.id_brand = b.id 
+			 and p.isshow = '1' and p.isonsale = '1' and p.status = '1'
+			 and ( p.name like CONCAT('%',#{value},'%')  or  p.sn like CONCAT('%',#{value},'%') )
+	</select>
+	<sql id="queryProCondition">
+	    <trim prefix="WHERE" prefixOverrides="AND">
+              <if test="id != null">
+                  id = #{id}
+              </if> 
+              <if test="id_cate != null">
+                 and id_cate = #{id_cate}
+              </if>
+              <if test="id_brand != null">
+                 and id_brand = #{id_brand}
+              </if> 
+              <if test="name != null">
+                and  name like CONCAT('%',#{name},'%')  
+              </if>
+              <if test="sn != null">
+                and  sn like CONCAT('%',#{sn},'%')  
+              </if>
+              <if test="subTitle != null">
+                and  subtitle like CONCAT('%',#{subTitle},'%')  
+              </if>
+               <if test="enTitle != null">
+                and  entitle like CONCAT('%',#{enTitle},'%')  
+              </if>
+              <if test="rome != null">
+                and  rome = #{rome}
+              </if> 
+              <if test="jianPin != null">
+                and  jianpin = #{jianPin}
+              </if> 
+              <if test="keyWords != null">
+                and  keywords = #{keyWords}
+              </if>
+               <if test="isShow != null">
+                and  isshow = #{isShow}
+              </if> 
+              <if test="isOnSale != null">
+                and  isonsale = #{isOnSale}
+              </if> 
+              <if test="isShipping != null">
+                and  isshipping = #{isShipping}
+              </if>  
+              <if test="status != null">
+                and  status = #{status}
+              </if>                   
+		</trim>
+	</sql>
+</mapper>

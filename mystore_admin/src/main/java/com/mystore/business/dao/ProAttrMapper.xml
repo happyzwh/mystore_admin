@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.ProAttrMapper">
+	<insert id="addProAttr" parameterType="proAttr" useGeneratedKeys="true" keyProperty="id">
+		insert into productattr(
+			    id_pro,
+			    id_cateattr,
+			    id_attr,
+			    attrvalue,
+			    sort,
+			    status,
+			    createdate,
+			    lastdate
+		 )values(
+		      #{id_pro},
+		      #{id_cateAttr},
+		      #{id_attr},
+		      #{attrValue},
+		      #{sort},
+		      '1',
+		      now(),
+		      now()
+		 )
+	</insert>
+    <update id="updateProAttrById" parameterType="proAttr">
+		update productattr
+		<trim prefix="set" prefixOverrides=",">
+			id_attr = #{id_attr},
+			attrvalue = #{attrValue},
+		   <if test="sort != null">
+				sort = #{sort},
+		   </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<select id="getProAttrByProId" parameterType="int" resultType="proAttr">
+		 select id,
+		        id_pro,
+			    id_cateattr as 'id_cateAttr',
+			    id_attr,
+			    attrvalue as 'attrValue',
+			    sort,
+			    status,
+			    createdate as 'createDate',
+			    lastdate as 'lastDate'
+		from productattr
+		where id_pro = #{value}
+	</select>
+	<delete id="deleteProAttrByProId" parameterType="int">
+		delete from productattr where id_pro = #{value}
+	</delete>
+    <delete id="deleteProAttrByCateAttrId" parameterType="int">
+		delete from productattr where id_cateattr = #{value}
+	</delete>
+	<select id="getProAttrByMap" parameterType="map" resultType="proAttr">
+		 select id,
+		        id_pro,
+			    id_cateattr as 'id_cateAttr',
+			    id_attr,
+			    attrvalue as 'attrValue',
+			    sort,
+			    status,
+			    createdate as 'createDate',
+			    lastdate as 'lastDate'
+		from productattr
+		where id_pro = #{id_pro} and id_cateattr = #{id_cateAttr}
+	</select>
+</mapper>

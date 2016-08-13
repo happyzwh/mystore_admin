@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <constant name="struts.devMode" value="false" />  
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.objectFactory" value="spring" /> 
+
+    <package name="user" namespace="/user" extends="struts-default">   
+       <action name="userAction" class="userAction">
+            <result name="toLogin">/page/login.jsp</result>
+			<result name="index">/page/index/index.jsp</result>
+			<result name="top">/page/index/top.jsp</result>
+			<result name="left">/page/index/left.jsp</result>
+			<result name="logout">/page/toLogin.jsp</result>
+			<result name="list">/page/user/list.jsp</result>
+			<result name="add">/page/user/add.jsp</result>
+			<result name="edit">/page/user/edit.jsp</result>
+			<result name="userRole">/page/user/userRole.jsp</result>
+		    <result name="userPower">/page/user/userPower.jsp</result>
+		    <result name="userPowerView">/page/user/userPowerView.jsp</result>
+		</action>
+    </package>
+ 
+    <package name="role" namespace="/role" extends="struts-default">   
+       <action name="roleAction" class="roleAction">
+			<result name="list">/page/role/list.jsp</result>
+			<result name="add">/page/role/add.jsp</result>
+			<result name="edit">/page/role/edit.jsp</result>
+			<result name="rolePower">/page/role/rolePower.jsp</result>
+		</action>
+    </package>
+    
+    <package name="power" namespace="/power" extends="struts-default">   
+       <action name="powerAction" class="powerAction">
+			<result name="index">/page/power/index.jsp</result>
+		</action>
+    </package>
+    
+    <package name="basicAttri" namespace="/basicAttri" extends="struts-default">   
+       <action name="basicAttriAction" class="basicAttriAction">
+			<result name="list">/page/basicAttri/list.jsp</result>
+			<result name="add">/page/basicAttri/add.jsp</result>
+		    <result name="edit">/page/basicAttri/edit.jsp</result>
+		    <result name="valueList">/page/basicAttri/valueList.jsp</result>
+			<result name="valueAdd">/page/basicAttri/valueAdd.jsp</result>
+		    <result name="valueEdit">/page/basicAttri/valueEdit.jsp</result>
+		</action>
+    </package>
+    
+    <package name="category" namespace="/category" extends="struts-default">   
+       <action name="categoryAction" class="categoryAction">
+			<result name="index">/page/category/index.jsp</result>
+			<result name="cateAttri">/page/cateattri/index.jsp</result>
+		</action>
+    </package>
+    
+    <package name="region" namespace="/region" extends="struts-default">   
+       <action name="regionAction" class="regionAction">
+			<result name="index">/page/region/index.jsp</result>
+		</action>
+    </package>
+    
+    <package name="brand" namespace="/brand" extends="struts-default">   
+       <action name="brandAction" class="brandAction">
+			<result name="index">/page/brand/index.jsp</result>
+			<result name="cate_select">/page/brand/category.jsp</result>
+			<result name="brandInfo">/page/brand/info.jsp</result>
+			<result name="region_select">/page/brand/region.jsp</result>
+		</action>
+    </package>
+    
+    <package name="product" namespace="/product" extends="struts-default">   
+       <action name="productAction" class="productAction">
+			<result name="list">/page/product/list.jsp</result>
+			<result name="cate_select">/page/brand/category.jsp</result>
+			<result name="brand_select">/page/product/brand.jsp</result>
+		    <result name="jbxx">/page/product/jbxx.jsp</result>
+		    <result name="info">/page/product/info.jsp</result>
+		    <result name="attr">/page/product/attr.jsp</result>
+		    <result name="img">/page/product/img.jsp</result>
+		    <result name="price">/page/product/price.jsp</result>
+		</action>
+    </package>
+    
+    <package name="adv" namespace="/adv" extends="struts-default">   
+       <action name="advAction" class="advAction">
+            <result name="index">/page/adv/index.jsp</result>
+			<result name="list">/page/adv/list.jsp</result>
+			<result name="list_advimg">/page/adv/list_advimg.jsp</result>
+			<result name="list_pro">/page/adv/list_pro.jsp</result>
+			<result name="list_resource">/page/adv/list_resource.jsp</result>
+			<result name="edit_advimg">/page/adv/edit_advimg.jsp</result>
+			<result name="edit_pro">/page/adv/edit_pro.jsp</result>
+			<result name="edit_resource">/page/adv/edit_resource.jsp</result>
+		</action>
+    </package>
+    
+    <package name="info" namespace="/info" extends="struts-default">   
+       <action name="infoAction" class="infoAction">
+            <result name="index">/page/info/index.jsp</result>
+            <result name="list">/page/info/list.jsp</result>
+            <result name="infoList">/page/info/infoList.jsp</result>
+            <result name="edit">/page/info/edit.jsp</result>
+		</action>
+    </package>
+    
+    <package name="upload" namespace="/upload" extends="struts-default">   
+       <action name="uploadAction" class="uploadAction">
+		</action>
+    </package>
+</struts>

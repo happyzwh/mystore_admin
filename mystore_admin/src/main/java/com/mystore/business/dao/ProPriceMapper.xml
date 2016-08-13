@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.ProPriceMapper">
+	<insert id="addProPrice" parameterType="proPrice" useGeneratedKeys="true" keyProperty="id">
+		insert into productprice(
+			    id_pro,
+			    markprice,
+			    shopprice,
+			    activeprice,
+			    status,
+			    createdate,
+			    lastdate
+		 )values(
+		      #{id_pro},
+		      #{markPrice},
+		      #{shopPrice},
+		      #{activePrice},
+		      '1',
+		      now(),
+		      now()
+		 )
+	</insert>
+    <update id="updateProPriceByProId" parameterType="proPrice">
+		update productprice
+		<trim prefix="set" prefixOverrides=",">
+	       <if test="markPrice != null">
+				markprice = #{markPrice},
+		   </if>
+		   <if test="shopPrice != null">
+				shopprice = #{shopPrice},
+		   </if>
+		   <if test="activePrice != null">
+				activeprice = #{activePrice},
+		   </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id_pro = #{id_pro}
+	</update>
+	<select id="getProPriceByProId" parameterType="int" resultType="proPrice">
+		 select id,
+		        id_pro,
+			    markprice as 'markPrice',
+			    shopprice as 'shopPrice',
+			    activeprice as 'activePrice',
+			    status,
+			    createdate,
+			    lastdate
+		from productprice
+		where id_pro = #{value}
+	</select>
+	<delete id="deleteProPriceByProId" parameterType="int">
+		delete from productprice where id_pro = #{value}
+	</delete>
+</mapper>

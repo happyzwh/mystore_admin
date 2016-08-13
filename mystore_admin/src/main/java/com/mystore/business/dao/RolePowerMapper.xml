@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.RolePowerMapper">
+
+	<insert id="addRolePower" parameterType="rolePower" useGeneratedKeys="true" keyProperty="id">
+		insert into adm_role_power(
+			id_role,
+			id_power
+		 )values(
+		    #{roleId},
+		    #{powerId}
+		 )
+	</insert>
+	<delete id="deleteRolePower" parameterType="rolePower">
+		delete from adm_role_power 
+		<trim prefix="where" prefixOverrides="and">
+		     <if test="roleId != null">
+	        	id_role = #{roleId}
+	         </if>
+	         <if test="powerId != null">
+	          and id_power = #{powerId}
+	         </if>
+		</trim>
+	</delete>
+	<select id="selectRolePower" parameterType="rolePower" resultType="rolePower">
+	    select 
+	        id,
+	        id_role as 'roleId',
+			id_power as 'powerId'
+	    from adm_role_power 
+		<trim prefix="where" prefixOverrides="and">
+		     <if test="roleId != null">
+	        	id_role = #{roleId}
+	         </if>
+	         <if test="powerId != null">
+	          and id_power = #{powerId}
+	         </if>
+		</trim>
+	</select>
+</mapper>

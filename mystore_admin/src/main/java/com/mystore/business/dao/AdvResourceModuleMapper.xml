@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.AdvResourceModuleMapper">
+    <select id="getAdvResourceModuleListByPid" parameterType="int" resultType="advResourceModule">
+		select
+		    id,
+		    pid,
+		    id_pro,
+		    sn,
+		    name,
+		    sort,
+		    url,
+		    path_pic,
+		    content,
+		    ismarkshow as 'isMarkShow',
+		    isshow as 'isShow',
+		    status,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_resourcemodule 
+		where pid = #{value}
+		order by sort asc
+	</select>
+	<select id="getAdvResourceModuleById" parameterType="int" resultType="advResourceModule">
+	   select
+	        id,
+		    pid,
+		    id_pro,
+		    sn,
+		    name,
+		    sort,
+		    url,
+		    path_pic,
+		    content,
+		    ismarkshow as 'isMarkShow',
+		    isshow as 'isShow',
+		    status,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_resourcemodule 
+		where id = #{value}
+	</select>
+	<insert id="addAdvResourceModule" parameterType="advResourceModule" useGeneratedKeys="true" keyProperty="id">
+		insert into adv_resourcemodule(
+		    pid,
+		    id_pro,
+		    sn,
+		    name,
+		    sort,
+		    url,
+		    path_pic,
+		    content,
+		    ismarkshow,
+		    isshow,
+		    status,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{pid},
+		    #{id_pro},
+		    #{sn},
+		    #{name},
+		    #{sort},
+		    #{url},
+		    #{path_pic},
+		    #{content}, 
+		    #{isMarkShow},  
+		    #{isShow},   
+		    #{status},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updateAdvResourceModuleById" parameterType="advResourceModule">
+		update adv_resourcemodule
+		<trim prefix="set" prefixOverrides=",">
+		  <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	       <if test="id_pro != null">
+	        	id_pro = #{id_pro},
+	       </if>
+	       <if test="sn != null">
+				sn = #{sn},
+		   </if>
+	       <if test="name != null">
+				name = #{name},
+		   </if>
+		   <if test="sort != null">
+				sort = #{sort},
+		   </if>
+	       <if test="url != null">
+	        	url = #{url},
+	       </if>
+	       <if test="path_pic != null">
+	        	path_pic = #{path_pic},
+	       </if>
+	       <if test="content != null">
+	        	content = #{content},
+	       </if>
+	       <if test="isMarkShow != null">
+	        	ismarkshow = #{isMarkShow},
+	       </if>
+	       <if test="isShow != null">
+	        	isshow = #{isShow},
+	       </if>
+	       <if test="status != null">
+	        	status = #{status},
+	       </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deletaAdvResourceModuleById" parameterType="int">
+		delete from adv_resourcemodule where id = #{value}
+	</delete>
+	<delete id="deleteAdvResourceModuleByPid" parameterType="int">
+		delete from adv_resourcemodule where pid = #{value}
+	</delete>
+</mapper>

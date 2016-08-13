@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.CategoryMapper">
+    <select id="getCateById" parameterType="int" resultType="category">
+		select
+		    id,
+		    pid,
+		    name,
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    keywords as 'keyWords',
+		    descr,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from category 
+		where id = #{value}
+	</select>
+	<select id="selectCateListByPid" parameterType="int" resultType="category">
+		select
+		    id,
+		    pid,
+		    name,
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    keywords as 'keyWords',
+		    descr,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from category 
+		where pid = #{value}
+	</select>
+	<select id="selectCountByPid" parameterType="int" resultType="int">
+		select count(*)
+		from category 
+		where pid = #{value}
+	</select>
+    <select id="getCateByPidAndName" parameterType="map" resultType="category">
+		select
+		    id,
+		    pid,
+		    name,
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    keywords as 'keyWords',
+		    descr,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from category 
+		where pid = #{pid} and name = #{name} 
+	</select>
+	<insert id="addCategory" parameterType="category" useGeneratedKeys="true" keyProperty="id">
+		insert into category(
+		    pid,
+		    name,
+		    rome,
+		    jianpin,
+		    enname,
+		    keywords,
+		    descr,
+		    status,
+		    sort,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{pid},
+		    #{name},
+		    #{rome},
+		    #{jianPin},
+		    #{enName},
+		    #{keyWords},
+		    #{descr},
+		    '1',
+		    #{sort},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="upateCateById" parameterType="category">
+		update category
+		<trim prefix="set" prefixOverrides=",">
+		  <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	       <if test="name != null">
+	        	name = #{name},
+	       </if>
+	        <if test="rome != null">
+	        	rome = #{rome},
+	       </if>
+	       <if test="jianPin != null">
+	        	jianpin = #{jianPin},
+	       </if>
+	       <if test="enName != null">
+	        	enname = #{enName},
+	       </if>
+	       <if test="keyWords != null">
+	        	keywords = #{keyWords},
+	       </if>
+	       <if test="descr != null">
+	        	descr = #{descr},
+	       </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   <if test="sort != null">
+				sort = #{sort},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteCateById" parameterType="int">
+		delete from category where id = #{value}
+	</delete>
+</mapper>

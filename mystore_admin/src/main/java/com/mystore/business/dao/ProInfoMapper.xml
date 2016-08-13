@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.ProInfoMapper">
+	<insert id="addProInfo" parameterType="proInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into productinfo(
+			    id_pro,
+			    provider,
+			    descr,
+			    feature,
+			    proshow,
+			    areaintroduce,
+			    qualification,
+			    usemethod,
+			    brandculture,
+			    honor,
+			    providerintroduce,
+			    status,
+			    createdate,
+			    lastdate
+		 )values(
+		      #{id_pro},
+		      #{provider},
+		      #{descr},
+		      #{feature},
+		      #{proShow},
+		      #{areaIntroduce},
+		      #{qualification},
+		      #{useMethod},
+		      #{brandCulture},
+		      #{honor},
+		      #{providerIntroduce},
+		      '1',
+		      now(),
+		      now()
+		 )
+	</insert>
+    <update id="updateProInfoByProId" parameterType="proInfo">
+		update productinfo
+		<trim prefix="set" prefixOverrides=",">
+	       <if test="provider != null">
+				provider = #{provider},
+		   </if>
+		   <if test="descr != null">
+				descr = #{descr},
+		   </if>
+		   <if test="feature != null">
+				feature = #{feature},
+		   </if>
+		   <if test="proShow != null">
+				proshow = #{proShow},
+		   </if>
+		   <if test="areaIntroduce != null">
+				areaintroduce = #{areaIntroduce},
+		   </if>
+		   <if test="qualification != null">
+				qualification = #{qualification},
+		   </if>
+		   <if test="useMethod != null">
+				usemethod = #{useMethod},
+		   </if>
+		   <if test="brandCulture != null">
+				brandculture = #{brandCulture},
+		   </if>
+		   <if test="honor != null">
+				honor = #{honor},
+		   </if>
+		   <if test="providerIntroduce != null">
+				providerintroduce = #{providerIntroduce},
+		   </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id_pro = #{id_pro}
+	</update>
+	<select id="getProInfoByProId" parameterType="int" resultType="proInfo">
+		 select id,
+		        id_pro,
+			    provider,
+			    descr,
+			    feature,
+			    proshow,
+			    areaintroduce,
+			    qualification,
+			    usemethod,
+			    brandculture,
+			    honor,
+			    providerintroduce,
+			    status,
+			    createdate,
+			    lastdate
+		from productinfo
+		where id_pro = #{value}
+	</select>
+	<delete id="deleteProInfoByProId" parameterType="int">
+		delete from productinfo where id_pro = #{value}
+	</delete>
+</mapper>

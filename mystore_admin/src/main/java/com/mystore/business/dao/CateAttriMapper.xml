@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.CateAttriMapper">
+    <select id="selectCateAttriListByCateId" parameterType="int" resultType="cateAttri">
+		select 
+		    c.id,
+		    c.id_cate,
+		    c.id_attr,
+		    b.name as 'attriName',
+		    c.sort,
+		    c.createdate as 'createDate',
+		    c.lastdate as 'lastDate'
+		from  cateattri c ,basicattri b
+		where c.id_attr = b.id and c.id_cate = #{value}
+		order by c.sort asc
+	</select>
+	<select id="selectCateAttriListByAttrId" parameterType="int" resultType="cateAttri">
+		select   id,
+		    id_cate,
+		    id_attr,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from  cateattri
+		where id_attr = #{value}
+		order by sort asc
+	</select>
+	<insert id="addCateAttri" parameterType="cateAttri" useGeneratedKeys="true" keyProperty="id">
+		insert into cateattri(
+		    id_cate,
+		    id_attr,
+		    sort,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{id_cate},
+		    #{id_attr},
+		    #{sort},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updateCateAttri" parameterType="cateAttri">
+	    update cateattri set sort = #{sort}, lastdate = now() where id_cate = #{id_cate} and id_attr = #{id_attr}
+	</update>
+	<delete id="deleteCateAttri" parameterType="cateAttri">
+		delete from cateattri
+		<trim prefix="where" prefixOverrides="and">
+		  <if test="id_cate != null">
+	        	id_cate = #{id_cate}
+	       </if>
+	       <if test="id_attr != null">
+	        	and id_attr = #{id_attr}
+	       </if>
+	     </trim>  
+	</delete>
+</mapper>

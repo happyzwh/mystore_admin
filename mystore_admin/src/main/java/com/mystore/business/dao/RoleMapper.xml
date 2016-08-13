@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.RoleMapper">
+	<select id="selectRoleById" parameterType="int" resultType="role">
+		select
+		    id,
+		    name,
+		    descr,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adm_role 
+		where id = #{value}
+	</select>
+	<insert id="addRole" parameterType="role" useGeneratedKeys="true" keyProperty="id">
+		insert into adm_role(
+			   name,
+			   descr,
+			   status,
+			   sort,
+			   createdate,
+			   lastdate
+		 )values(
+		      #{name},
+		      #{descr},
+		      '1',
+		      #{sort},
+		      now(),
+		      now()
+		 )
+	</insert>
+    <update id="updateRoleById" parameterType="role">
+		update adm_role
+		<trim prefix="set" prefixOverrides=",">
+	       <if test="name != null">
+	        	name = #{name},
+	       </if>
+	        <if test="descr != null">
+	        	descr = #{descr},
+	       </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   <if test="sort != null">
+				sort = #{sort},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteRoleById" parameterType="int">
+		delete from adm_role where id = #{value}
+	</delete>
+	<select id="selectRoleByName" parameterType="string" resultType="role">
+		select
+		    id,
+		    name,
+			descr,
+			status,
+			sort,
+			createdate,
+			lastdate
+		from adm_role 
+		where name = #{name} and status = '1'
+	</select>
+	<select id="selectRoleList" parameterType="role" resultType="role">
+	    select  
+		    id,
+		    name,
+			descr,
+			status,
+			sort,
+			createdate,
+			lastdate
+		from adm_role
+	    <include refid="queryUserCondition"/>
+	    order by sort asc, name asc
+	    <if test="pageIndex != null and pageSize != null">
+               limit #{pageIndex},#{pageSize}
+        </if> 
+	</select>
+	<select id="selectRoleCount" parameterType="role" resultType="int">
+	    select  count(*)
+		from  adm_role
+	    <include refid="queryUserCondition"/>
+	</select>
+	<sql id="queryUserCondition">
+	    <trim prefix="WHERE" prefixOverrides="AND">
+              <if test="id != null">
+                  id = #{id}
+              </if>  
+              <if test="name != null">
+                and  name like CONCAT('%',#{name},'%')  
+              </if>
+              and  status = '1'                       
+		</trim>
+	</sql>
+</mapper>

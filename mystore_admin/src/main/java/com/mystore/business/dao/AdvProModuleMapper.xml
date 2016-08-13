@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.AdvProModuleMapper">
+    <select id="getAdvProModuleListByPid" parameterType="int" resultType="advProModule">
+		select
+		    id,
+		    pid,
+		    id_pro,
+		    name,
+		    starttime as 'startTime',
+		    endtime as 'endTime',
+		    sort,
+		    status,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_promodule 
+		where pid = #{value}
+		order by sort asc
+	</select>
+	<select id="getAdvProModuleById" parameterType="int" resultType="advProModule">
+	   select
+		    id,
+		    pid,
+		    id_pro,
+		    name,
+		    starttime as 'startTime',
+		    endtime as 'endTime',
+		    sort,
+		    status,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_promodule 
+		where id = #{value}
+	</select>
+    <select id="getAdvProModuleByPidAndProId" parameterType="map" resultType="advProModule">
+	   select
+		    id,
+		    pid,
+		    id_pro,
+		    name,
+		    starttime as 'startTime',
+		    endtime as 'endTime',
+		    sort,
+		    status,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_promodule 
+		where pid = #{pid} and id_pro = #{proId}
+	</select>
+	<insert id="addAdvProModule" parameterType="advProModule" useGeneratedKeys="true" keyProperty="id">
+		insert into adv_promodule(
+		    pid,
+		    id_pro,
+		    name,
+		    starttime,
+		    endtime,
+		    sort,
+		    status,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{pid},
+		    #{id_pro},
+		    #{name},
+		    #{startTime},
+		    #{endTime},
+		    #{sort},
+		    #{status},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updateAdvProModuleById" parameterType="advProModule">
+		update adv_promodule
+		<trim prefix="set" prefixOverrides=",">
+		  <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	       <if test="id_pro != null">
+	        	id_pro = #{id_pro},
+	       </if>
+	       <if test="name != null">
+				name = #{name},
+		   </if>
+	       <if test="startTime != null">
+	        	starttime = #{startTime},
+	       </if>
+	       <if test="endTime != null">
+	        	endtime = #{endTime},
+	       </if>
+	       <if test="sort != null">
+				sort = #{sort},
+		   </if>
+	       <if test="status != null">
+	        	status = #{status},
+	       </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteAdvProModuleById" parameterType="int">
+		delete from adv_promodule where id = #{value}
+	</delete>
+	<delete id="deleteAdvProModuleByPId" parameterType="int">
+		delete from adv_promodule where pid = #{value}
+	</delete>
+</mapper>

@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+	text-align:center;
+}
+.login{
+	width:1000px;
+	height:612px;
+	background:url(../images/login-bg1.jpg) no-repeat left top;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+}
+.user,.pw{
+	width:175px;
+	height:20px;
+	line-height:20px;
+	font-size:12px;
+	font-family:微软雅黑;
+	color:#333;
+	border:0;
+	position:absolute;
+	right:177px;
+	text-align:left;
+}
+.user{
+	top:275px;
+}
+.pw{
+	top:315px;
+}
+/*buttons*/
+.button-login,.button-reset{
+	width:84px;
+	height24px;
+	line-height:24px;
+	font-family:宋体;
+	color:#002f69;
+	text-align:center;
+	letter-spacing:5px;
+	border:0;
+	background:url(../images/button-bg.png) no-repeat left top;
+	position:absolute;
+	top:356px;
+	outline:none;
+	cursor:pointer;
+}
+.button-login{
+	right:320px;
+}
+.button-reset{
+	right:202px;
+}
+.user:focus,.pw:focus{
+	outline: none;
+} 

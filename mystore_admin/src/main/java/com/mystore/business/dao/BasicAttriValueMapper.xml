@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.BasicAttriValueMapper">
+	<select id="getBasicAttriValueById" parameterType="int" resultType="basicAttriValue">
+		select
+		    id,
+		    pid,
+		    value,
+		    descr,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from basicattrivalue 
+		where id = #{value}
+	</select>
+	<select id="getBasicAttriValueByValue" parameterType="map" resultType="basicAttriValue">
+		select
+		    id,
+		    pid,
+		    value,
+		    descr,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from basicattrivalue 
+		where pid = #{pid} and value = #{value}
+	</select>
+	<insert id="addBasicAttriValue" parameterType="basicAttriValue" useGeneratedKeys="true" keyProperty="id">
+		insert into basicattrivalue(
+		    pid,
+		    value,
+		    descr,
+		    status,
+		    sort,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{pid},
+		    #{value},
+		    #{descr},
+		    '1',
+		    #{sort},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updateBasicAttriValueById" parameterType="basicAttriValue">
+		update basicattrivalue
+		<trim prefix="set" prefixOverrides=",">
+	       <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	        <if test="value != null">
+	        	value = #{value},
+	       </if>
+	        <if test="descr != null">
+	        	descr = #{descr},
+	       </if>
+		   <if test="status != null">
+				status = #{status},
+		   </if>
+		   <if test="sort != null">
+				sort = #{sort},
+		   </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteBasicAttriValueById" parameterType="int">
+		delete from basicattrivalue where id = #{value}
+	</delete>
+	<delete id="deleteBasicAttriValueByPid" parameterType="int">
+		delete from basicattrivalue where pid = #{value}
+	</delete>
+	<select id="getBasicAttriValueList" parameterType="basicAttriValue" resultType="basicAttriValue">
+	    select  
+		    id,
+		    pid,
+		    value,
+		    descr,
+		    status,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from basicattrivalue
+	    <include refid="queryBasicAttriValueCondition"/>
+	    order by sort asc, value asc
+	</select>
+	<sql id="queryBasicAttriValueCondition">
+	    <trim prefix="WHERE" prefixOverrides="AND">
+              <if test="id != null">
+                  	and id = #{id}
+              </if>  
+              <if test="pid != null">
+                  	and pid = #{pid}
+              </if>  
+              <if test="value != null">
+                	and  value = #{value}
+              </if>
+		      and status = '1'                       
+		</trim>
+	</sql>
+</mapper>

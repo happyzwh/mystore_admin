@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../js/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script language="javascript">
+var isShow = true;
+$(function(){
+   $("#menuSwitch1").click(function(){
+	     if(!isShow){
+			    window.top.document.getElementById("main").cols = "192,9,*";
+				$("#menuSwitch1").attr("src",'../../images/control_arrow2.gif');
+				document.all.menuSwitch1.title='隐藏';
+				isShow = true;
+		 }else{
+		      parent.main.cols = "0,9,*";
+		      $("#menuSwitch1").attr("src",'../../images/control_arrow1.gif');
+		      document.all.menuSwitch1.title='显示';
+		      isShow = false;
+		 }
+   });
+
+});
+</script>
+</HEAD>
+<body  leftmargin=0 topmargin=0 style="margin:0px;padding:0px;">
+<span class="cacher" id="cacheData" name="cacheData" style="cursor:pointer;"></span>
+<table border=0 height="100%" cellspacing="0" cellpadding="0" style="height:100%;">
+	<tr>
+	 <td valign="middle" bgcolor="#15acea" id=menuSwitch style="cursor:pointer;"><img title='显示' src="../../images/control_arrow2.gif" width='9' id='menuSwitch1' ></td>
+	</tr>
+</table>
+</body>
+</HTML>

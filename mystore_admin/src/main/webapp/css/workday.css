@@ -1,0 +1,34 @@
+.workday{
+   width:60%;
+   margin:0 auto;
+   text-align:center;
+   border:1px solid #c0d1e3;
+   padding:10px;
+   background-color:#FFFFFF;
+}
+.workday .day{
+   width:14.2%;
+   float:left;
+   height:30px;
+   line-height:30px;
+   text-align:center;
+   margin:10px auto;
+}
+.workday .header{
+   width:90%;
+   text-align:center;
+   height:30px;
+   line-height:30px;
+   background-color:#000000;
+}
+
+.workday .dayNum,.workday .dayNum1{
+   cursor:pointer;
+}
+.attendanceChange{
+     cursor:pointer;
+}
+
+.attendanceChangeBackColor{
+    background-color:#c0d1e3;
+}

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.BrandMapper">
+    <select id="getBrandById" parameterType="int" resultType="brand">
+		select
+		    id,
+		    id_cate,
+		    pid,
+		    name,
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    keywords as 'keyWords',
+		    descr,
+		    status,
+		    path_logoimg_fir,
+		    path_logoimg_sec,
+		    url,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from brand 
+		where id = #{value}
+	</select>
+	<select id="selectBrandListByPid" parameterType="int" resultType="brand">
+		select
+		    id,
+		    id_cate,
+		    pid,
+		    name,
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    keywords as 'keyWords',
+		    descr,
+		    status,
+		    path_logoimg_fir,
+		    path_logoimg_sec,
+		    url,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from brand  
+		where pid = #{value}
+	</select>
+	<select id="selectCountByPid" parameterType="int" resultType="int">
+		select count(*)
+		from brand 
+		where pid = #{value}
+	</select>
+    <select id="getBrandByPidAndName" parameterType="map" resultType="brand">
+	     select
+		    id,
+		    id_cate,
+		    pid,
+		    name,
+		    rome,
+		    jianpin as 'jianPin',
+		    enname as 'enName',
+		    keywords as 'keyWords',
+		    descr,
+		    status,
+		    path_logoimg_fir,
+		    path_logoimg_sec,
+		    url,
+		    sort,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from brand 
+		where pid = #{pid} and name = #{name} 
+	</select>
+	<insert id="addBrand" parameterType="brand" useGeneratedKeys="true" keyProperty="id">
+		insert into brand(
+		    id_cate,
+		    pid,
+		    name,
+		    rome,
+		    jianpin,
+		    enname,
+		    keywords,
+		    descr,
+		    status,
+		    path_logoimg_fir,
+		    path_logoimg_sec,
+		    url,
+		    sort,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{id_cate},
+		    #{pid},
+		    #{name},
+		    #{rome},
+		    #{jianPin},
+		    #{enName},
+		    #{keyWords},
+		    #{descr},
+		    '1',
+		    #{path_logoimg_fir},
+		    #{path_logoimg_sec},
+		    #{url},
+		    #{sort},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="upateBrandById" parameterType="Brand">
+		update brand
+		<trim prefix="set" prefixOverrides=",">
+		   <if test="id_cate != null">
+	        	id_cate = #{id_cate},
+	       </if>
+		   <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	       <if test="name != null">
+	        	name = #{name},
+	       </if>
+	       <if test="rome != null">
+	        	rome = #{rome},
+	       </if>
+	       <if test="jianPin != null">
+	        	jianpin = #{jianPin},
+	       </if>
+	       <if test="enName != null">
+	        	enname = #{enName},
+	       </if>
+	        <if test="keyWords != null">
+	        	keywords = #{keyWords},
+	       </if>
+	       <if test="descr != null">
+	        	descr = #{descr},
+	       </if>
+	       <if test="path_logoimg_fir != null">
+	        	path_logoimg_fir = #{path_logoimg_fir},
+	       </if>
+	        <if test="path_logoimg_sec != null">
+	        	path_logoimg_sec = #{path_logoimg_sec},
+	       </if>
+	        <if test="url != null">
+	        	url = #{url},
+	       </if>
+	       <if test="sort != null">
+	        	sort = #{sort},
+	       </if>
+	        lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteBrandById" parameterType="int">
+		delete from brand where id = #{value}
+	</delete>
+</mapper>

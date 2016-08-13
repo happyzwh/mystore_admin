@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.AdvPageTypeMapper">
+  <select id="getAdvPageTypeListByPid" parameterType="int" resultType="advPageType">
+		select
+		    id,
+		    pid,
+		    name,
+		    sort,
+		    type,
+		    status,
+		    bh,
+		    descr,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_pagetype 
+		where pid = #{value}
+	</select>
+    <select id="getAdvPageTypeById" parameterType="int" resultType="advPageType">
+		select
+		    id,
+		    pid,
+		    name,
+		    sort,
+		    type,
+		    status,
+		    bh,
+		    descr,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_pagetype 
+		where id = #{value}
+	</select>
+	<insert id="addAdvPageType" parameterType="advPageType" useGeneratedKeys="true" keyProperty="id">
+		insert into adv_pagetype(
+		    pid,
+		    name,
+		    sort,
+		    type,
+		    status,
+		    bh,
+		    descr,
+		    createdate,
+		    lastdate
+		 )values(
+		    #{pid},
+		    #{name},
+		    #{sort},
+		    #{type},
+		    '1',
+		    #{bh},
+		    #{descr},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<update id="updateAdvPageTypeById" parameterType="advPageType">
+		update adv_pagetype
+		<trim prefix="set" prefixOverrides=",">
+		  <if test="pid != null">
+	        	pid = #{pid},
+	       </if>
+	       <if test="name != null">
+	        	name = #{name},
+	       </if>
+	       <if test="sort != null">
+				sort = #{sort},
+		   </if>
+	       <if test="type != null">
+	        	type = #{type},
+	       </if>
+	       <if test="status != null">
+				status = #{status},
+		   </if>
+		   <if test="bh != null">
+				bh = #{bh},
+		   </if>
+	       <if test="descr != null">
+	        	descr = #{descr},
+	       </if>
+		   lastdate = now()
+		</trim>	
+		where id = #{id}
+	</update>
+	<delete id="deleteAdvPageTypeById" parameterType="int">
+		delete from adv_pagetype where id = #{value}
+	</delete>
+	<select id="selectCountByPid" parameterType="int" resultType="int">
+		select count(*)
+		from adv_pagetype 
+		where pid = #{value}
+	</select>
+	<select id="getAdvPageTypeByPidAndName" parameterType="map" resultType="advPageType">
+		select
+		    id,
+		    pid,
+		    name,
+		    sort,
+		    type,
+		    status,
+		    bh,
+		    descr,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_pagetype 
+		where pid = #{pid} and name = #{name}
+	</select>
+	<select id="getAdvPageTypeByBh" parameterType="string" resultType="advPageType">
+		select
+		    id,
+		    pid,
+		    name,
+		    sort,
+		    type,
+		    status,
+		    bh,
+		    descr,
+		    createdate as 'createDate',
+		    lastdate as 'lastDate'
+		from adv_pagetype 
+		where bh = #{value}
+	</select>
+</mapper>

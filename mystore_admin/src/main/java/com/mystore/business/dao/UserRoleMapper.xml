@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.UserRoleMapper">
+	
+	<insert id="addUserRole" parameterType="userRole" useGeneratedKeys="true" keyProperty="id">
+		insert into adm_user_role(
+			id_user,
+			id_role
+		 )values(
+		    #{userId},
+		    #{roleId}
+		 )
+	</insert>
+	<delete id="deleteUserRole" parameterType="userRole">
+		delete from adm_user_role 
+		<trim prefix="where" prefixOverrides="and">
+		     <if test="userId != null">
+	        	id_user = #{userId}
+	         </if>
+	         <if test="roleId != null">
+	          and id_role = #{roleId}
+	         </if>
+		</trim>
+	</delete>
+	<select id="selectUserRole" parameterType="userRole" resultType="userRole">
+	    select 
+	        id,
+	        id_user as 'userId',
+			id_role as 'roleId'
+	    from adm_user_role 
+		<trim prefix="where" prefixOverrides="and">
+		     <if test="userId != null">
+	        	id_user = #{userId}
+	         </if>
+	         <if test="roleId != null">
+	          and id_role = #{roleId}
+	         </if>
+		</trim>
+	</select>
+</mapper>
