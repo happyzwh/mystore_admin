@@ -6,7 +6,7 @@
     <groupId>com.mystore.zwh</groupId>
     <artifactId>mspom</artifactId>
     <version>0.0.1</version>
-	<relativePath>../mspom/pom.xml</relativePath> 
+	<relativePath>../../mspom/mspom/pom.xml</relativePath> 
   </parent>
   
   <artifactId>mystore_admin</artifactId>
