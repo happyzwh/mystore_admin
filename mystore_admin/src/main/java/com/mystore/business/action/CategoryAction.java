@@ -222,6 +222,16 @@ public class CategoryAction extends BaseAction{
 			cate.setName(name);
 			cate.setSort(sort == null?1:sort);
 			cate.setPid(pid==null?-1:pid);
+			
+			if(pid != null && pid != -1){
+				Category parent = categoryService.getCateById(pid);
+				if(parent.getPid() == -1){
+					cate.setPids(","+pid+",");
+				}else{
+					cate.setPids(parent.getPids()+pid+",");
+				}
+			}
+			
 			cate.setRome(rome);
 			cate.setJianPin(jianPin);
 			cate.setEnName(enName);

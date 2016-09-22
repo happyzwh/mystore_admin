@@ -292,6 +292,16 @@ public class BrandAction extends BaseAction{
 			brand = new Brand();
 	        brand.setId(id);
 			brand.setPid(pid);
+			
+			if(pid != null && pid != -1){
+				Brand parent = brandService.getBrandById(pid);
+				if(parent.getPid() == -1){
+					brand.setPids(","+pid+",");
+				}else{
+					brand.setPids(parent.getPids()+pid+",");
+				}
+			}
+			
 			brand.setId_cate(id_cate);
 			brand.setName(name);
 			brand.setRome(rome);
