@@ -7,6 +7,7 @@
 		select
 		    id,
 		    pid,
+		    pids,
 		    name,
 		    rome,
 		    jianpin as 'jianPin',
@@ -24,6 +25,7 @@
 		select
 		    id,
 		    pid,
+		    pids,
 		    name,
 		    rome,
 		    jianpin as 'jianPin',
@@ -46,6 +48,7 @@
 		select
 		    id,
 		    pid,
+		    pids,
 		    name,
 		    rome,
 		    jianpin as 'jianPin',
@@ -62,6 +65,7 @@
 	<insert id="addCategory" parameterType="category" useGeneratedKeys="true" keyProperty="id">
 		insert into category(
 		    pid,
+		    pids,
 		    name,
 		    rome,
 		    jianpin,
@@ -74,6 +78,7 @@
 		    lastdate
 		 )values(
 		    #{pid},
+		    #{pids},
 		    #{name},
 		    #{rome},
 		    #{jianPin},
@@ -89,8 +94,11 @@
 	<update id="upateCateById" parameterType="category">
 		update category
 		<trim prefix="set" prefixOverrides=",">
-		  <if test="pid != null">
+		   <if test="pid != null">
 	        	pid = #{pid},
+	       </if>
+	       <if test="pids != null">
+	        	pids = #{pids},
 	       </if>
 	       <if test="name != null">
 	        	name = #{name},

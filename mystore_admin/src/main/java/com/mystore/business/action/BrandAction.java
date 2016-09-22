@@ -179,8 +179,18 @@ public class BrandAction extends BaseAction{
 			}
 			
 			brand = new Brand();
-			brand.setPid(pid);
+			brand.setPid(pid==null?-1:pid);
 			brand.setId_cate(id_cate);
+			
+			if(pid != null && pid != -1){
+				Brand parent = brandService.getBrandById(pid);
+				if(parent.getPid() == -1){
+					brand.setPids(","+pid+",");
+				}else{
+					brand.setPids(parent.getPids()+pid+",");
+				}
+			}
+			
 			brand.setName(name);
 			brand.setRome(rome);
 			brand.setJianPin(jianPin);

@@ -42,11 +42,24 @@ public class BrandServiceImpl implements BrandService{
 	public void deleteBrandById(Integer id) throws Exception {
 		// TODO Auto-generated method stub
 		if(id != null){
-			brandInfoMapper.deleteBrandInfoByBid(id);
-			brandMapper.deleteBrandById(id);
+			deleteBrandByPid(id);
 		}
 	}
 
+	private void deleteBrandByPid(Integer pid) throws Exception {
+		// TODO Auto-generated method stub
+		if(pid != null){
+    		List<Brand> list = brandMapper.selectBrandListByPid(pid);
+			if(list != null && list.size() > 0){
+				for(Brand brand:list){
+					deleteBrandByPid(brand.getId());
+				}
+			}
+			brandInfoMapper.deleteBrandInfoByBid(pid);
+			brandMapper.deleteBrandById(pid);
+		}
+	}
+	
 	@Override
 	public Brand getBrandById(Integer id) throws Exception {
 		// TODO Auto-generated method stub

@@ -8,6 +8,7 @@
 		    id,
 		    id_cate,
 		    pid,
+		    pids,
 		    name,
 		    rome,
 		    jianpin as 'jianPin',
@@ -29,6 +30,7 @@
 		    id,
 		    id_cate,
 		    pid,
+		    pids,
 		    name,
 		    rome,
 		    jianpin as 'jianPin',
@@ -55,6 +57,7 @@
 		    id,
 		    id_cate,
 		    pid,
+		    pids,
 		    name,
 		    rome,
 		    jianpin as 'jianPin',
@@ -75,6 +78,7 @@
 		insert into brand(
 		    id_cate,
 		    pid,
+		    pids,
 		    name,
 		    rome,
 		    jianpin,
@@ -91,6 +95,7 @@
 		 )values(
 		    #{id_cate},
 		    #{pid},
+		    #{pids},
 		    #{name},
 		    #{rome},
 		    #{jianPin},
@@ -114,6 +119,9 @@
 	       </if>
 		   <if test="pid != null">
 	        	pid = #{pid},
+	       </if>
+	       <if test="pids != null">
+	        	pids = #{pids},
 	       </if>
 	       <if test="name != null">
 	        	name = #{name},
