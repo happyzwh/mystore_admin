@@ -110,9 +110,9 @@
 		            alert("提示：编号不能为空！");
 		            return false;
 	           }
-	           var patrns=/^[a-zA-Z0-9]{3,10}$/; 
+	           var patrns=/^[a-zA-Z0-9]{3,20}$/; 
 			   if(!patrns.exec($.trim($("#bh").val()))){
-				     alert("提示：编号格式应最多为3-10位字母和数字！");
+				     alert("提示：编号格式应最多为3-20位字母和数字！");
 	                 return false;
 			   }
 	           if($.trim($("#descr").val()) != "" && $.trim($("#descr").val()).replace(/[^\x00-\xff]/g,"**").length > 1000 ){
@@ -203,9 +203,9 @@
 		          alert("提示：编号不能为空！");
 		          return false;
 	           }
-	           var patrns=/^[a-zA-Z0-9]{3,10}$/; 
+	           var patrns=/^[a-zA-Z0-9]{3,20}$/; 
 			   if(!patrns.exec($.trim($("#bh").val()))){
-				     alert("提示：编号格式应最多为3-10位字母和数字！");
+				     alert("提示：编号格式应最多为3-20位字母和数字！");
 	                 return false;
 			   }
 	           if($.trim($("#descr").val()) != "" && $.trim($("#descr").val()).replace(/[^\x00-\xff]/g,"**").length > 1000 ){
@@ -273,7 +273,7 @@
 						           <tr>
 						               <td width="15%" style="text-align:right;">编号：</td>
 						               <td width="50%" style="text-align:left;">
-						                   <input type="text" id="bh" name="bh" style="width:400px;height:28px;" maxlength="7" /> 
+						                   <input type="text" id="bh" name="bh" style="width:400px;height:28px;" maxlength="20" /> 
 						               </td>
 						           </tr>
 						           <tr>

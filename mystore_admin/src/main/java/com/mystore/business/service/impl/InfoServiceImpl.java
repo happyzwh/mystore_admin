@@ -68,7 +68,7 @@ public class InfoServiceImpl implements InfoService{
 	public Integer selectCountByPid(Integer pid) {
 		// TODO Auto-generated method stub
 		if(pid != null){
-			infoMapper.selectCountByPid(pid);
+			return infoMapper.selectCountByPid(pid);
 		}
 		return 0;
 	}
