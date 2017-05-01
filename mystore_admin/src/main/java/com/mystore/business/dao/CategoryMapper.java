@@ -48,5 +48,12 @@ public interface CategoryMapper {
 	 * 
 	 * */
 	public Integer selectCountByPid(Integer pid);
+	
+	/**
+	 * 
+	 * 批量更新分类状态为不可用
+	 * 
+	 * */
+	public void batchUpdateCateStatusNoByIds(List<Integer> ids) throws Exception;
 
 }

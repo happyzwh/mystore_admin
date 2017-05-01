@@ -241,6 +241,21 @@ public class CategoryAction extends BaseAction{
 			cate.setDescr(descr);
 			cate.setStatus(status);
 			categoryService.upateCateById(cate);
+			
+			if(status.equals("0")){
+				List<Integer> listStr = null;
+				List<Category> list = categoryService.getAllSonCategoryById(id);
+				if(list != null && list.size() > 0){
+					listStr = new ArrayList<Integer>();
+					for(Category cates:list){
+						listStr.add(cates.getId());
+						getSonCateIdByPid(cates.getId(),listStr);
+					}
+				}
+				if(listStr != null && listStr.size() > 0){
+					categoryService.batchUpdateCateStatusNoByIds(listStr);
+				}
+			}
 		
 		}catch(Exception e){
 			returnCode = -1;
@@ -250,6 +265,16 @@ public class CategoryAction extends BaseAction{
 			 response.getWriter().print(returnCode);
 		}
 		
+	}
+	
+	private void getSonCateIdByPid(Integer pid,List<Integer> listStr)  throws Exception{
+		List<Category> list = categoryService.getAllSonCategoryById(pid);
+		if(list != null && list.size() > 0){
+			for(Category cates:list){
+				listStr.add(cates.getId());
+				getSonCateIdByPid(cates.getId(),listStr);
+			}
+		}
 	}
 	
 	/**

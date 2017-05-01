@@ -67,6 +67,26 @@ public interface CategoryService {
 	 * 
 	 * */
 	public void deleteCateAttri(CateAttri cateAttri);
+	
+	/**
+	 * 
+	 * 查询分类的所有父分类
+	 * 
+	 * */
+	public List<Category> getAllParentCategoryById(Integer id) throws Exception;
+	
+	/**
+	 * 
+	 * 查询分类的所有子分类
+	 * 
+	 * */
+	public List<Category> getAllSonCategoryById(Integer id) throws Exception;
+	/**
+	 * 
+	 * 批量更新分类状态为不可用
+	 * 
+	 * */
+	public void batchUpdateCateStatusNoByIds(List<Integer> ids) throws Exception;
 
 
 }

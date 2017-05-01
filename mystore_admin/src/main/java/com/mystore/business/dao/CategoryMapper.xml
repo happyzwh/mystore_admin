@@ -131,4 +131,13 @@
 	<delete id="deleteCateById" parameterType="int">
 		delete from category where id = #{value}
 	</delete>
+	<update id="batchUpdateCateStatusNoByIds" parameterType="java.util.List">
+		update category set status = '0'
+		<where>  
+        id in   
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+    </where>   
+	</update>
 </mapper>
