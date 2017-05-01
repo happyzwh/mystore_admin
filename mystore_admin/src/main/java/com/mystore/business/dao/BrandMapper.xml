@@ -102,7 +102,7 @@
 		    #{enName},
 		    #{keyWords},
 		    #{descr},
-		    '1',
+		    #{status},
 		    #{path_logoimg_fir},
 		    #{path_logoimg_sec},
 		    #{url},
@@ -137,6 +137,9 @@
 	       </if>
 	        <if test="keyWords != null">
 	        	keywords = #{keyWords},
+	       </if>
+	       <if test="status != null">
+	        	status = #{status},
 	       </if>
 	       <if test="descr != null">
 	        	descr = #{descr},

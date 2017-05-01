@@ -57,6 +57,8 @@ public class CategoryAction extends BaseAction{
 	
 	private Integer sort;
 	
+	private String status;
+	
 	public String index(){
 		
 		return "index";
@@ -147,7 +149,7 @@ public class CategoryAction extends BaseAction{
 			cate.setEnName(enName);
 			cate.setKeyWords(keyWords);
 			cate.setDescr(descr);
-			
+			cate.setStatus(status);
 			categoryService.addCategory(cate);
 		
 			returnCode = cate.getId();
@@ -184,7 +186,7 @@ public class CategoryAction extends BaseAction{
 	        data.put("keyWords", cate.getKeyWords());
 	        data.put("descr", cate.getDescr());
 	        data.put("sort", cate.getSort());
-		
+	        data.put("status", cate.getStatus());
 		}catch(Exception e){
 			returnCode = -1;
 		}finally{
@@ -237,7 +239,7 @@ public class CategoryAction extends BaseAction{
 			cate.setEnName(enName);
 			cate.setKeyWords(keyWords);
 			cate.setDescr(descr);
-			
+			cate.setStatus(status);
 			categoryService.upateCateById(cate);
 		
 		}catch(Exception e){
@@ -486,6 +488,14 @@ public class CategoryAction extends BaseAction{
 
 	public void setIds(String ids) {
 		this.ids = ids;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

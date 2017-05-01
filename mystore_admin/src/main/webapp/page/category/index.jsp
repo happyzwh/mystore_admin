@@ -24,6 +24,7 @@
 					      $("#keyWords").val('');
 					      $("#sort").val(''); 
 					      $("#descr").val('');
+					      $("#status").val(''); 
 				          return false;
 				       }
                        $.ajax({
@@ -46,6 +47,7 @@
 										      $("#keyWords").val(data.keyWords);
 										      $("#sort").val(data.sort); 
 										      $("#descr").val(data.descr);
+										      $("#status").val(data.status); 
 					                    }
 				                    }else{
 				                        alert("提示：服务异常！");
@@ -110,7 +112,7 @@
 					type: 'post',
 					data: {'name':$.trim($("#name").val()),'rome':$.trim($("#rome").val()),'jianPin':$.trim($("#jianPin").val()),
 					      'enName':$.trim($("#enName").val()),'keyWords':$.trim($("#keyWords").val()),'sort':$.trim($("#sort").val()), 
-					      'descr':$.trim($("#descr").val()),'pid':tree.getSelectedItemId() == ''?-1:tree.getSelectedItemId()},
+					      'descr':$.trim($("#descr").val()),'status':$.trim($("#status").val()),'pid':tree.getSelectedItemId() == ''?-1:tree.getSelectedItemId()},
 					async: false,
 					dataType: "text",
 					success:function(data){
@@ -129,6 +131,7 @@
 							     $("#keyWords").val('');
 							     $("#sort").val(''); 
 							     $("#descr").val('');
+							     $("#status").val('');
 					             alert("提示：保存成功！");
 		                    }
 					},
@@ -163,6 +166,7 @@
 								     $("#keyWords").val('');
 								     $("#sort").val(''); 
 								     $("#descr").val(''); 
+								     $("#status").val('');
 						             alert("提示：删除成功！");
 			                    }
 						},
@@ -198,7 +202,7 @@
 					type: 'post',
 					data: {'name':$.trim($("#name").val()),'rome':$.trim($("#rome").val()),'jianPin':$.trim($("#jianPin").val()),
 					      'enName':$.trim($("#enName").val()),'keyWords':$.trim($("#keyWords").val()),'sort':$.trim($("#sort").val()), 
-					      'descr':$.trim($("#descr").val()),'id':tree.getSelectedItemId(),'pid':tree.getParentId(tree.getSelectedItemId())},
+					      'descr':$.trim($("#descr").val()),'status':$.trim($("#status").val()),'id':tree.getSelectedItemId(),'pid':tree.getParentId(tree.getSelectedItemId())},
 					async: false,
 					dataType: "text",
 					success:function(data){
@@ -226,6 +230,7 @@
 				$("#keyWords").val('');
 				$("#sort").val(''); 
 				$("#descr").val(''); 
+				$("#status").val(''); 
 	       }
 	    </script>
 	</head>
@@ -273,6 +278,15 @@
 						               <td width="15%" style="text-align:right;">排序：</td>
 						               <td width="50%" style="text-align:left;">
 						                   <input type="text" id="sort" name="sort" style="width:250px;height:28px;" maxlength="4" /> 
+						               </td>
+						           </tr>
+						           <tr>
+						               <td width="15%" style="text-align:right;">状态：</td>
+						               <td width="50%" style="text-align:left;">
+						                   <select id="status" style="width:50px;">
+						                       <option value="0">不可用</option>
+						                       <option value="1">可用</option>
+						                   </select>
 						               </td>
 						           </tr>
 						           <tr>

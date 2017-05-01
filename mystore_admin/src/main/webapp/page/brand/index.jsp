@@ -99,6 +99,7 @@
 					      $("#url").val('');
 					      $("#sort").val(''); 
 					      $("#descr").val('');
+					      $("#status").val('');
 				          return false;
 				       }
                        $.ajax({
@@ -126,6 +127,7 @@
 										      $("#url").val(data.url);
 										      $("#sort").val(data.sort); 
 										      $("#descr").val(data.descr);
+										      $("#status").val(data.status);
 					                    }
 				                    }else{
 				                        alert("提示：服务异常！");
@@ -200,7 +202,7 @@
 					data: {'name':$.trim($("#name").val()),'id_cate':$.trim($("#id_cate").val()),'rome':$.trim($("#rome").val()),'jianPin':$.trim($("#jianPin").val()),
 					      'enName':$.trim($("#enName").val()),'keyWords':$.trim($("#keyWords").val()),'sort':$.trim($("#sort").val()),'descr':$.trim($("#descr").val()),
 					      'path_logoimg_fir':$.trim($("#path_logoimg_fir").val()),'path_logoimg_sec':$.trim($("#path_logoimg_sec").val()),'url':$.trim($("#url").val()),
-					      'pid':tree.getSelectedItemId() == ''?-1:tree.getSelectedItemId()},
+					      'pid':tree.getSelectedItemId() == ''?-1:tree.getSelectedItemId(),'status':$.trim($("#status").val())},
 					async: false,
 					dataType: "text",
 					success:function(data){
@@ -224,6 +226,7 @@
 							     $("#url").val('');
 							     $("#sort").val(''); 
 							     $("#descr").val('');
+							     $("#status").val('');
 					             alert("提示：保存成功！");
 		                    }
 					},
@@ -263,6 +266,7 @@
 								     $("#url").val('');
 								     $("#sort").val(''); 
 								     $("#descr").val('');
+								     $("#status").val('');
 						             alert("提示：删除成功！");
 			                    }
 						},
@@ -299,7 +303,7 @@
 					data: {'name':$.trim($("#name").val()),'id_cate':$.trim($("#id_cate").val()),'rome':$.trim($("#rome").val()),'jianPin':$.trim($("#jianPin").val()),
 					      'enName':$.trim($("#enName").val()),'keyWords':$.trim($("#keyWords").val()),'sort':$.trim($("#sort").val()),'descr':$.trim($("#descr").val()),
 					      'path_logoimg_fir':$.trim($("#path_logoimg_fir").val()),'path_logoimg_sec':$.trim($("#path_logoimg_sec").val()),'url':$.trim($("#url").val()),
-					      'id':tree.getSelectedItemId(),'pid':tree.getParentId(tree.getSelectedItemId())},
+					      'id':tree.getSelectedItemId(),'pid':tree.getParentId(tree.getSelectedItemId()),'status':$.trim($("#status").val())},
 					async: false,
 					dataType: "text",
 					success:function(data){
@@ -332,6 +336,7 @@
 				$("#url").val('');
 				$("#sort").val(''); 
 				$("#descr").val(''); 
+				$("#status").val('');
 	       }
 	       function cate_select(){
 			 	var url='<%=request.getContextPath() %>/brand/brandAction!cate_select.dhtml';
@@ -436,6 +441,15 @@
 						               <td style="text-align:right;">排序：</td>
 						               <td style="text-align:left;">
 						                   <input type="text" id="sort" name="sort" style="width:250px;height:28px;" maxlength="4" /> 
+						               </td>
+						           </tr>
+						           <tr>
+						               <td  style="text-align:right;">状态：</td>
+						               <td  style="text-align:left;">
+						                   <select id="status" style="width:50px;">
+						                       <option value="0">不可用</option>
+						                       <option value="1">可用</option>
+						                   </select>
 						               </td>
 						           </tr>
 						           <tr>

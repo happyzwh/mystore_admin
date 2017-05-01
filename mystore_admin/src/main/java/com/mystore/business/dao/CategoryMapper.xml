@@ -85,7 +85,7 @@
 		    #{enName},
 		    #{keyWords},
 		    #{descr},
-		    '1',
+		    #{status},
 		    #{sort},
 		    now(),
 		    now()

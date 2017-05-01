@@ -199,6 +199,7 @@ public class BrandAction extends BaseAction{
 			brand.setDescr(descr);
 			brand.setSort(sort == null?1:sort);
 			brand.setUrl(url);
+			brand.setStatus(status);
 			brand.setPath_logoimg_fir(path_logoimg_fir);
 			brand.setPath_logoimg_sec(path_logoimg_sec);
 			
@@ -253,6 +254,7 @@ public class BrandAction extends BaseAction{
 		        data.put("descr", brand.getDescr());
 		        data.put("sort", brand.getSort());
 		        data.put("url", brand.getUrl());
+		        data.put("status", brand.getStatus());
 		        data.put("path_logoimg_fir", brand.getPath_logoimg_fir());
 		        data.put("path_logoimg_sec", brand.getPath_logoimg_sec());
 	        }
@@ -311,6 +313,7 @@ public class BrandAction extends BaseAction{
 			brand.setDescr(descr);
 			brand.setSort(sort == null?1:sort);
 			brand.setUrl(url);
+			brand.setStatus(status);
 			brand.setPath_logoimg_fir(path_logoimg_fir);
 			brand.setPath_logoimg_sec(path_logoimg_sec);
 			
