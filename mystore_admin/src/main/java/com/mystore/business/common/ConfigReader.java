@@ -11,7 +11,7 @@ public class ConfigReader {
 	
 	private static Logger logger = Logger.getLogger(ConfigReader.class);
 	
-	private static String path_pic_service = "http://localhost:8080/picService";
+	private static String path_pic_service = "/picService";
 	
 	private static String path_pic_upload= "H:/workspaces_jdk6/mystore_upload";
 	
