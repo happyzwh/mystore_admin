@@ -12,6 +12,13 @@ public interface RegionService {
 	 * */
 	public Region getRegionById(Integer id) throws Exception;
 	
+
+	/**
+	 * 根据类型得实体
+	 * 
+	 * */
+	public List<Region> getRegionListByType(String type) throws Exception;
+	
 	/**
 	 * 根据父id和名称查询实体
 	 * 
@@ -47,5 +54,11 @@ public interface RegionService {
 	 * 
 	 * */
 	public Integer selectCountByPid(Integer pid) throws Exception;
+	
+	/**
+	 * 查询所有省市县树形列表
+	 * 
+	 * */
+	public List<Region> selectAllRegion()  throws Exception;
 
 }

@@ -14,6 +14,17 @@
 		from region 
 		where id = #{value}
 	</select>
+	<select id="getRegionListByType" parameterType="string" resultType="region">
+		select
+		    id,
+		    pid,
+		    name,
+		    type,
+		    code,
+		    sort
+		from region 
+		where type = #{value}
+	</select>
 	<select id="selectRegionListByPid" parameterType="int" resultType="region">
 		select
 		    id,

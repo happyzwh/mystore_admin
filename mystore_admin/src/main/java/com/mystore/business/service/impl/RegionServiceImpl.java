@@ -80,5 +80,35 @@ public class RegionServiceImpl implements RegionService{
 		}
 		
 	}
+	
+	@Override
+	public List<Region> getRegionListByType(String type) throws Exception {
+		// TODO Auto-generated method stub
+		return regionMapper.getRegionListByType(type);
+	}
+
+	@Override
+	public List<Region> selectAllRegion() throws Exception {
+		// TODO Auto-generated method stub
+		List<Region> list = regionMapper.getRegionListByType("1");
+		
+		if(list != null && list.size() > 0){
+			for(Region region:list){
+				getSonList(region);
+			}
+		}
+		
+		return list;
+	}
+	
+	private void getSonList(Region parent){
+		List<Region> list = regionMapper.selectRegionListByPid(parent.getId());
+		if(list != null && list.size() > 0){
+			parent.setSons(list);
+			for(Region son:list){
+				getSonList(son);
+			}
+		}
+	}
 
 }

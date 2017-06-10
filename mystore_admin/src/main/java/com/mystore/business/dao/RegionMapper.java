@@ -13,6 +13,13 @@ public interface RegionMapper {
 	 * */
 	public Region getRegionById(Integer id);
 	
+
+	/**
+	 * 根据类型得实体
+	 * 
+	 * */
+	public List<Region> getRegionListByType(String type) throws Exception;
+	
 	/**
 	 * 根据父id和名称查询实体
 	 * 

@@ -1,5 +1,9 @@
 package com.mystore.business.dto;
 
+import java.util.List;
+
+import com.mystore.business.annotation.ExcludeAnnotation;
+
 public class Region extends BasicDto{
 
 	/**
@@ -7,17 +11,24 @@ public class Region extends BasicDto{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+
 	private Integer id;
 	
+	@ExcludeAnnotation
 	private Integer pid;
 	
 	private String name;
 	
+	@ExcludeAnnotation
 	private String type;
 	
+	@ExcludeAnnotation
 	private String code;
 
+	@ExcludeAnnotation
 	private Integer sort;
+	
+	private List<Region> sons;
 	
 	public Integer getId() {
 		return id;
@@ -65,6 +76,14 @@ public class Region extends BasicDto{
 
 	public void setSort(Integer sort) {
 		this.sort = sort;
+	}
+
+	public List<Region> getSons() {
+		return sons;
+	}
+
+	public void setSons(List<Region> sons) {
+		this.sons = sons;
 	}
 
 }
