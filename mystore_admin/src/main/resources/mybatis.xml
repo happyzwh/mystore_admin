@@ -34,6 +34,11 @@
            
            <typeAlias alias="infoCate" type="com.mystore.business.dto.InfoCate"/>
            <typeAlias alias="info" type="com.mystore.business.dto.Info"/>
+           
+           <typeAlias alias="comment" type="com.mystore.business.dto.Comment"/>
+           <typeAlias alias="commentReply" type="com.mystore.business.dto.CommentReply"/>
+           <typeAlias alias="consult" type="com.mystore.business.dto.Consult"/>
+           <typeAlias alias="consultReply" type="com.mystore.business.dto.ConsultReply"/>
    </typeAliases>  
    <mappers>  
            <mapper resource="com/mystore/business/dao/UserMapper.xml" />   
@@ -66,5 +71,8 @@
            <mapper resource="com/mystore/business/dao/AdvImgMapper.xml" />
            
            <mapper resource="com/mystore/business/dao/InfoMapper.xml" />
+           
+           <mapper resource="com/mystore/business/dao/CommentMapper.xml" />
+           <mapper resource="com/mystore/business/dao/ConsultMapper.xml" />
     </mappers>  
 </configuration>  

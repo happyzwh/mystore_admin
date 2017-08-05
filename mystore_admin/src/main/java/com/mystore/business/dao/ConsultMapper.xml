@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mystore.business.dao.ConsultMapper">
+	<resultMap type="consult" id="consultMap">
+		<result property="id" column="id" />
+		<result property="id_pro" column="id_pro" />
+		<result property="id_user" column="id_user" />
+		<result property="userName" column="userName" />
+		<result property="type" column="type" />
+		<result property="content" column="content" />
+		<result property="isreply" column="isreply" />
+		<result property="status" column="status" />
+		<result property="createDate" column="createDate" />
+		<result property="lastDate" column="lastDate" />
+		<collection property="replys" select="getProConsultReplyByPid" column="id"/>
+	</resultMap>
+	<resultMap type="consultReply" id="consultReplyMap">
+		<result property="id" column="id" />
+		<result property="id_adm_user" column="id_adm_user" />
+		<result property="userName" column="userName" />
+		<result property="content" column="content" />
+		<result property="status" column="status" />
+		<result property="createDate" column="createDate" />
+		<result property="lastDate" column="lastDate" />
+	</resultMap>
+	<select id="getProConsultReplyByPid" parameterType="int" resultMap="consultReplyMap">
+	    select  id,
+			    id_adm_user,
+			    username as 'userName',
+			    content,
+			    status,
+			    createdate as 'createDate',
+			    lastdate as 'lastDate'
+		from consultreply
+	    where pid = #{value}
+	</select>
+	<select id="getProConsultById" parameterType="int" resultMap="consultMap">
+	    	    select  c.id,
+			    		c.id_pro,
+			    		p.name as 'productName',
+						c.id_user,
+						c.username as 'userName',
+					    c.type,
+						c.content,
+					    c.status,
+						c.isreply,
+						c.createdate as 'createDate',
+						c.lastdate as 'lastDate'
+				from consult c,product p
+			    where c.id = #{value} and c.id_pro = p.id
+	</select>
+	<select id="getProConsultCount" parameterType="consult" resultType="int">
+	    	    select  count(*)
+				from consult c,product p
+			    <include refid="queryConsultCondition"/>
+	</select>
+	<select id="getProConsultList" parameterType="consult" resultMap="consultMap">
+	    	    select  c.id,
+			    		c.id_pro,
+			    		p.name as 'productName',
+						c.id_user,
+						c.username as 'userName',
+						c.type,
+						c.content,
+						c.isreply,
+						c.status,
+						c.createdate as 'createDate',
+						c.lastdate as 'lastDate'
+				from consult c,product p
+			     <include refid="queryConsultCondition"/>
+			     order by c.createdate desc
+			     <if test="pageIndex != null and pageSize != null">
+               		limit #{pageIndex},#{pageSize}
+       		     </if> 
+	</select>
+	<update id="updateProConsultStatus" parameterType="consult">
+		update consult set status = #{status},isreply = #{isreply} where id = #{id}
+	</update>
+	<insert id="saveConsultReply" parameterType="consultReply" useGeneratedKeys="true" keyProperty="id">
+		insert into consultreply(
+		    pid,
+			id_adm_user,
+			username,
+			content,
+			status,
+			createdate,
+			lastdate
+		 )values(
+		    #{pid},
+		    #{id_adm_user},
+		    #{userName},
+		    #{content},
+		    #{status},
+		    now(),
+		    now()
+		 )
+	</insert>
+	<sql id="queryConsultCondition">
+	    <trim prefix="WHERE" prefixOverrides="AND">
+              <if test="userName != null">
+                	and  c.username like CONCAT('%',#{userName},'%')  
+              </if>
+              <if test="productName != null">
+	        		and  p.name like CONCAT('%',#{productName},'%')  
+		      </if>
+		      <if test="type != null">
+		        	and c.type = #{type}
+		      </if>
+		      <if test="status != null">
+		        	and c.status = #{status}
+		      </if>
+		      <if test="isreply != null">
+		        	and c.isreply = #{isreply}
+		      </if>
+		      and c.id_pro = p.id                      
+		</trim>
+	</sql>
+</mapper>

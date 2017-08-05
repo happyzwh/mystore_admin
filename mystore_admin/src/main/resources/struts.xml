@@ -83,6 +83,14 @@
 		    <result name="img">/page/product/img.jsp</result>
 		    <result name="price">/page/product/price.jsp</result>
 		</action>
+		<action name="commentAction" class="commentAction">
+			<result name="list">/page/comment/list.jsp</result>
+			<result name="detail">/page/comment/detail.jsp</result>
+		</action>
+		<action name="consultAction" class="consultAction">
+			<result name="list">/page/consult/list.jsp</result>
+			<result name="detail">/page/consult/detail.jsp</result>
+		</action>
     </package>
     
     <package name="adv" namespace="/adv" extends="struts-default">   
