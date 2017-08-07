@@ -64,14 +64,22 @@
 	               </td>
 	           </tr>
 	           <tr>
-	               <td class="center">状态：</td>
+	               <td class="center">咨询类型：</td>
 	               <td >
-	                   <s:if test='comment.isreply == "0"'>未回复</s:if>
-	                   <s:elseif test='comment.isreply == "1"'>已回复</s:elseif>
+	                   <s:if test='consult.type == "1"'>商品</s:if>
+	                   <s:elseif test='consult.type == "2"'>支付</s:elseif>
+	                   <s:elseif test='consult.type == "3"'>售后</s:elseif>
 	               </td>
-	               <td class="center">创建时间：</td>
+	              <td class="center">回复状态：</td>
 	               <td >
-	                  <s:date name='comment.createDate' format="yyyy-MM-dd HH:mm:ss" />
+	                   <s:if test='consult.isreply == "0"'>未回复</s:if>
+	                   <s:elseif test='consult.isreply == "1"'>已回复</s:elseif>
+	               </td>
+	           </tr>
+	           <tr>
+	              <td class="center">创建时间：</td>
+	               <td colspan="3">
+	                  <s:date name='consult.createDate' format="yyyy-MM-dd HH:mm:ss" />
 	               </td>
 	           </tr>
 	           <tr>

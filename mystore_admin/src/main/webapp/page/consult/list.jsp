@@ -50,9 +50,9 @@
 	               <td width="35%">
 	                    <select id="type" name="type" style="width:100px;">
 	                        <option value="">全部</option>
-	                     	<option <s:if test='#request.type == "0"'>selected="selected"</s:if> value="0">商品</option>
-	                     	<option <s:if test='#request.type == "1"'>selected="selected"</s:if> value="1">支付</option>
-	                     	<option <s:if test='#request.type == "2"'>selected="selected"</s:if> value="2">售后</option>
+	                     	<option <s:if test='#request.type == "0"'>selected="selected"</s:if> value="1">商品</option>
+	                     	<option <s:if test='#request.type == "1"'>selected="selected"</s:if> value="2">支付</option>
+	                     	<option <s:if test='#request.type == "2"'>selected="selected"</s:if> value="3">售后</option>
 	                    </select>
 	               </td>
 	               <td width="15%" class="center">审核状态：</td>
@@ -100,9 +100,9 @@
 	               <td><s:property value="#consult.userName"/></td> 
 	               <td><s:property value="#consult.productName"/></td>
 	               <td>
-	                  <s:if test='#consult.type == "0"'>商品</s:if>
-	                  <s:elseif test='#consult.type == "1"'>支付</s:elseif>
-	                  <s:elseif test='#consult.type == "2"'>售后</s:elseif>
+	                  <s:if test='#consult.type == "1"'>商品</s:if>
+	                  <s:elseif test='#consult.type == "2"'>支付</s:elseif>
+	                  <s:elseif test='#consult.type == "3"'>售后</s:elseif>
 	               </td> 
 	               <td>
 	                  <s:if test='#consult.status == "0"'>未审核</s:if>
